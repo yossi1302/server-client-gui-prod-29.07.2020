@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import (QWidget, QSlider, QLineEdit, QLabel, QPushButton, QScrollArea,QApplication,
-QHBoxLayout, QVBoxLayout, QMainWindow)
+QHBoxLayout, QVBoxLayout, QMainWindow, QVBoxLayout,QApplication, QWidget, QScrollArea, QVBoxLayout, QGroupBox, QLabel, QPushButton, QFormLayout, QScrollBar)
 from PyQt5.QtCore import Qt, QSize
-from PyQt5 import QtWidgets, uic
+from PyQt5 import QtWidgets, uic, QtGui
 import sys
 import server
 import threading
@@ -19,13 +19,12 @@ def window():
     win = QMainWindow()
     win.setGeometry(200, 200, 500, 500)
     win.setWindowTitle("Server")
+    win.setWindowIcon(QtGui.QIcon("aplit-soft_logo.png"))
     Label.static_label = QtWidgets.QLabel(win)
     win.show()
     sys.exit(app.exec_())
-    scroll.static_scroll.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
-    scroll.static_scroll.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-    scroll.static_scroll.setWidgetResizable(True)
-    scroll.static_scroll.setWidget(win)
+
+
 
 def bring_message():
     for message in server.all_messages:
@@ -39,7 +38,7 @@ def show_message():
         Label.static_label.setText(str(bring_message()))
         Label.static_label.adjustSize()
 def start_all():
-    gui_code = threading.Thread(target=window, args=())
+    gui_code = threading.Thread(target=window)
     gui_code.start()
     server_code = threading.Thread(target=(server.start), args=())
     server_code.start()
